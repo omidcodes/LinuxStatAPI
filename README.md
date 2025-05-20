@@ -1,92 +1,94 @@
-# 🚀 FastAPI Project
+# 🖥️ Linux Monitor API
 
-A modern and scalable backend API built with [FastAPI](https://fastapi.tiangolo.com/), featuring clean architecture, automatic docs, and ready-to-test endpoints.
+A **FastAPI** project to expose various Linux system statistics as RESTful APIs using common Linux commands.
+
+---
+
+## 🚀 Features
+
+- ✅ System Information (kernel, hostname, uptime, user)
+- ✅ CPU & Memory Usage (top, free, lscpu)
+- ✅ Disk & Filesystem Info (df, du, mount)
+- ✅ Network Status (IP, routes, ping, traceroute)
+- ✅ Processes & Services (ps, systemctl)
+- ✅ Logs (syslog, dmesg, auth.log)
+- ✅ Hardware Details (lshw, lspci, sensors)
 
 ---
 
 ## 📁 Project Structure
 
 ```
-fastapi_project/
+linux_monitor_api/
 ├── app/
-│   ├── main.py                # App entry point
-│   ├── api/
-│   │   └── v1/
-│   │       └── endpoints/
-│   │           └── user.py    # Sample user endpoint
-│   ├── core/
-│   │   └── config.py          # App settings
-│   ├── models/                # Pydantic schemas (future)
-│   ├── services/              # Business logic (future)
-│   └── __init__.py
+│   ├── main.py
+│   ├── routes/
+│   │   ├── system.py
+│   │   ├── cpu_memory.py
+│   │   ├── disk.py
+│   │   ├── network.py
+│   │   ├── processes.py
+│   │   ├── logs.py
+│   │   └── hardware.py
+│   └── utils/
+│       └── run_command.py
 ├── tests/
-│   └── test_user.py           # Example test
-├── pytest.ini
+│   ├── test_system.py
+│   ├── test_cpu_memory.py
+│   ├── test_disk.py
+│   ├── test_network.py
+│   ├── test_processes.py
+│   ├── test_logs.py
+│   └── test_hardware.py
 ├── requirements.txt
 └── README.md
 ```
 
 ---
 
-## ⚙️ Setup & Run
+## ▶️ Run the API
 
-### 1. Create virtual environment
-```bash
-python -m venv venv
-source venv/bin/activate  # Linux/macOS
-venv\Scripts\activate     # Windows
-```
-
-### 2. Install dependencies
+### 1. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Run the server
+### 2. Start the server
 ```bash
 uvicorn app.main:app --reload
 ```
-
-Visit: [http://localhost:8000/docs](http://localhost:8000/docs) for Swagger UI.
 
 ---
 
 ## 🧪 Run Tests
 
-### Make sure you're in the project root:
 ```bash
-pytest -v
-```
-
-If necessary, run with:
-```bash
-PYTHONPATH=./ pytest -v
+pytest tests/
 ```
 
 ---
 
-## 📦 Dependencies
+## 🛡️ Notes
 
-- `fastapi`
-- `uvicorn[standard]`
-- `pydantic`
-- `pytest`
-- `httpx`
-
-(See `requirements.txt` for full list)
+- Some commands may require elevated privileges (e.g., `dmidecode`, `lshw`).
+- Make sure required tools like `traceroute`, `dig`, or `lm-sensors` are installed if needed.
 
 ---
 
-## 📌 Features
+## 📬 Example API Calls
 
-- Modular structure for easy scaling
-- Swagger & ReDoc auto-generated docs
-- Sample API with versioning (`/api/v1/users/`)
-- Unit test integration with `pytest`
-
+| Endpoint                      | Description                  |
+|------------------------------|------------------------------|
+| `/api/system/uname`          | Kernel info (`uname -a`)     |
+| `/api/cpu/lscpu`             | CPU info (`lscpu`)           |
+| `/api/disk/df`               | Disk usage (`df -h`)         |
+| `/api/network/ip`            | IP addresses (`ip a`)        |
+| `/api/processes/ps`          | Running processes (`ps aux`) |
+| `/api/logs/syslog`           | Syslog tail (`tail /syslog`) |
+| `/api/hardware/lshw`         | Hardware info (`lshw`)       |
 
 ---
 
-## 📄 License
+## 📌 License
 
-This project is open-source and available under the [MIT License](LICENSE).
+This project is licensed under the MIT License.
