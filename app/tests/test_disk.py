@@ -3,7 +3,8 @@ from app.main import app
 
 client = TestClient(app)
 
-def test_get_users():
-    response = client.get("/api/v1/users/")
+
+def test_get_df():
+    response = client.get("/api/disk/df")
     assert response.status_code == 200
-    assert isinstance(response.json(), list)
+    assert "Filesystem" in response.json()["output"]
