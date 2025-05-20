@@ -2,6 +2,10 @@
 
 A **FastAPI** project to expose various Linux system statistics as RESTful APIs using common Linux commands.
 
+> ⚠️ **Important**: This project only works on **Linux** systems.  
+> It uses native Linux shell commands (e.g. `lshw`, `df`, `ps`, etc.)  
+> ❌ It will not run correctly on Windows or macOS.
+
 ---
 
 ## 🚀 Features
@@ -92,3 +96,45 @@ pytest tests/
 ## 📌 License
 
 This project is licensed under the MIT License.
+
+## 📡 Command to API Endpoint Mapping
+
+| 🔧 Command | 🛣️ API Endpoint | 📝 Description |
+|-----------|------------------|----------------|
+| `uname -a` | `/api/system/uname` | Kernel name, version, architecture |
+| `hostnamectl` | `/api/system/hostname` | Show hostname and system information |
+| `lsb_release -a` | `/api/system/release` | Ubuntu release information |
+| `uptime` | `/api/system/uptime` | System uptime and load average |
+| `whoami` | `/api/system/user` | Current logged-in user |
+| `id` | `/api/system/id` | User ID and group info |
+| `uname -m` | `/api/system/architecture` | System architecture |
+| `top` | `/api/cpu/top` | Real-time CPU, memory, processes snapshot |
+| `vmstat 1` | `/api/cpu/vmstat` | CPU/memory system performance |
+| `lscpu` | `/api/cpu/lscpu` | Detailed CPU information |
+| `free -h` | `/api/memory/free` | Memory usage summary |
+| `cat /proc/meminfo` | `/api/memory/meminfo` | Live memory usage details |
+| `df -h` | `/api/disk/df` | Disk space usage |
+| `du -sh *` | `/api/disk/du` | Disk usage per directory |
+| `lsblk` | `/api/disk/lsblk` | Block devices overview |
+| `mount` | `/api/disk/mount` | Mounted filesystems |
+| `fdisk -l` | `/api/disk/fdisk` | Partition table info |
+| `findmnt` | `/api/disk/findmnt` | Hierarchical view of mount points |
+| `ip a` | `/api/network/ip` | Show IP addresses |
+| `ip route` | `/api/network/route` | Routing table |
+| `ss -tuln` | `/api/network/ss` | Listening ports (TCP/UDP) |
+| `ping 8.8.8.8` | `/api/network/ping` | Test network connectivity |
+| `traceroute google.com` | `/api/network/traceroute` | Trace network route |
+| `dig example.com` | `/api/network/dig` | DNS lookup |
+| `nmcli dev show` | `/api/network/nmcli` | Network manager details |
+| `ps aux` | `/api/processes/ps` | List running processes |
+| `systemctl status` | `/api/processes/systemctl_status` | Service manager status |
+| `systemctl list-units` | `/api/processes/systemctl_services` | List active services |
+| `journalctl -xe` | `/api/processes/journalctl` | View systemd logs |
+| `tail -n 100 /var/log/syslog` | `/api/logs/syslog` | Follow system logs |
+| `less /var/log/auth.log` | `/api/logs/auth` | Authentication logs |
+| `dmesg` | `/api/logs/dmesg` | Kernel ring buffer |
+| `lshw -short` | `/api/hardware/lshw` | Detailed hardware info |
+| `lspci` | `/api/hardware/lspci` | PCI bus devices |
+| `lsusb` | `/api/hardware/lsusb` | USB devices |
+| `dmidecode` | `/api/hardware/dmidecode` | BIOS, motherboard, RAM details |
+| `sensors` | `/api/hardware/sensors` | CPU temperature sensors |

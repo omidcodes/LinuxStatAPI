@@ -3,6 +3,7 @@ from app.main import app
 
 client = TestClient(app)
 
+
 def test_get_syslog():
     response = client.get("/api/logs/syslog")
     assert response.status_code == 200
